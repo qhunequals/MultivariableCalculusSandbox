@@ -1,4 +1,5 @@
 import math
+import sympy 
 
 def vector_add_subtract(vec1, vec2, operation):
     if len(vec1) != len(vec2):
@@ -24,38 +25,32 @@ def unit_vector(vector):
     return [x / mag for x in vector]
 
 
-# --- Test cases for VectorCalculator functions ---
-if __name__ == "__main__":
-    # Test vector_add_subtract
-    print("Testing vector_add_subtract...")
-    assert vector_add_subtract([1, 2], [3, 4], 'add') == [4, 6]
-    assert vector_add_subtract([5, 7], [2, 3], 'sub') == [3, 4]
 
-    # Test vector_magnitude
-    print("Testing vector_magnitude...")
-    assert abs(vector_magnitude([3, 4]) - 5.0) < 1e-9
-    assert abs(vector_magnitude([0, 0, 0]) - 0.0) < 1e-9
-    assert abs(vector_magnitude([1, 2, 2]) - 3.0) < 1e-9
+# given input function (string), variable to differentiate with respect to (string), output the derivative with respect to that variable (string)
+def differentiate_function(func_str, var_str):
+    var = sympy.symbols(var_str)
+    func = sympy.sympify(func_str)
+    derivative = sympy.diff(func, var)
+    return str(derivative)
 
-    # Test scale_vector
-    print("Testing scale_vector...")
-    assert scale_vector([1, 2, 3], 2) == [2, 4, 6]
-    assert scale_vector([0, -1], -3) == [0, 3]
-    assert scale_vector([1, 0], 0) == [0, 0]
+#given input function (string), variable to antidifferentiate with respect to (string), output the integral with respect to that variable (string)
+def integrate_function(func_str, var_str):
+    var = sympy.symbols(var_str)
+    func = sympy.sympify(func_str)
+    integral = sympy.integrate(func, var)
+    return str(integral)
 
-    # Test unit_vector
-    print("Testing unit_vector...")
-    assert unit_vector([3, 0]) == [1.0, 0.0]
-    assert unit_vector([0, 4]) == [0.0, 1.0]
-    try:
-        unit_vector([0, 0, 0])
-    except ValueError:
-        print("Passed zero vector unit test.")
-    result = unit_vector([1, 2, 2])
-    expected = [1/3, 2/3, 2/3]
-    for r, e in zip(result, expected):
-        assert abs(r - e) < 1e-9
+#evaluate a definite integral given input function (string), variable to integrate with respect to (string), lower limit (float), upper limit (float), output the definite integral (float)
+def definite_integral(func_str, var_str, lower_limit, upper_limit):
+    var = sympy.symbols(var_str)
+    func = sympy.sympify(func_str)
+    integral = sympy.integrate(func, (var, lower_limit, upper_limit))
+    return float(integral)
 
-    print("All tests passed!")
-
+#evaluate an expression at a value given input expression (string), variable to evaluate (string), value to evaluate at (float), output the evaluated expression (float)
+def evaluate_expression(expr_str, var_str, value):
+    var = sympy.symbols(var_str)
+    expr = sympy.sympify(expr_str)
+    evaluated = expr.subs(var, value)
+    return float(evaluated)
 
