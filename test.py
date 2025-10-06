@@ -94,6 +94,18 @@ def test_evaluate_expression():
     print("Result:", result)
     print("Expected:", expected, "\n")
 
+# test the total_distance_travelled function with a velocity parametric function
+def test_total_distance_travelled():
+    velocity_func_str = "3*t**2 - 2*t + 1"
+    var_str = "t"
+    lower_limit = 0
+    upper_limit = 2
+    # The expected value is the integral of the absolute value of the velocity function from 0 to 2
+    expected = 10.666666666666666
+    result = vcalc.total_distance_travelled(velocity_func_str, var_str, lower_limit, upper_limit)
+    print("Result:", result)
+    print("Expected:", expected, "\n")
+
 
 # run the tests
 if __name__ == "__main__":
@@ -106,3 +118,8 @@ if __name__ == "__main__":
     test_integrate_function()
     test_definite_integral()
     test_evaluate_expression()
+
+    # unit vector of a vector (2, -1, -2)
+    vec = [2, -1, 2]
+    unit_vec = vcalc.unit_vector(vec)
+    print("Unit vector of", vec, "is", unit_vec)
